@@ -26,12 +26,15 @@ def login_view(request):
     if request.method == 'POST':
         id_number = request.POST.get('id_number')
         password = request.POST.get('password')
-        user = authenticate(id_number=id_number, password=password)
-        if user:
-            login(request, user)
-            return redirect('sacco_users:dashboard')
-        else:
-            messages.error(request, 'Invalid credentials')
+        try:
+            user = authenticate(username=id_number, password=password)
+            if user:
+                login(request, user)
+                return redirect('sacco_users:dashboard')
+            else:
+                messages.error(request, 'Invalid credentials')
+        except Exception as e:
+            messages.error(request, f'Login error: {str(e)}')
     return render(request, 'login.html')
 
 def dashboard_view(request):

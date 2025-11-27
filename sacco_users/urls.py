@@ -2,6 +2,8 @@ from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView
 from . import views
 
+app_name = 'sacco_users'
+
 urlpatterns = [
     path('api/login/', TokenObtainPairView.as_view(), name='api_login'),
     path('api/users/', views.UserListCreateView.as_view(), name='api_user-list-create'),

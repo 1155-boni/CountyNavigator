@@ -24,8 +24,11 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+def home_redirect(request):
+    return redirect('sacco_users:login')
+
 urlpatterns = [
-    path('', redirect('sacco_users:login'), name='home'),
+    path('', home_redirect, name='home'),
     path('sacco_users/', include('sacco_users.urls', namespace='sacco_users')),
     path('admin/', admin.site.urls),
 ]
