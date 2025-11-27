@@ -38,10 +38,10 @@ def test_dashboard():
     client = Client()
 
     # Test admin1 login and dashboard
-    login_response = client.post('/login/', {'username': 'Admin1', 'password': 'AdminPass123'})
+    login_response = client.post('/sacco_users/login/', {'id_number': 'ADMIN001', 'password': 'AdminPass123'})
     print(f"Admin1 login status: {login_response.status_code}")
 
-    dashboard_response = client.get('/dashboard/')
+    dashboard_response = client.get('/sacco_users/dashboard/')
     print(f"Admin1 dashboard status: {dashboard_response.status_code}")
     content = dashboard_response.content.decode()
     print("Admin1 sees Admin2 in dashboard:", 'Admin2' in content)
@@ -49,10 +49,10 @@ def test_dashboard():
 
     # Test admin2 login and dashboard
     client.logout()
-    login_response = client.post('/login/', {'username': 'Admin2', 'password': 'AdminPass123'})
+    login_response = client.post('/sacco_users/login/', {'id_number': 'ADMIN002', 'password': 'AdminPass123'})
     print(f"Admin2 login status: {login_response.status_code}")
 
-    dashboard_response = client.get('/dashboard/')
+    dashboard_response = client.get('/sacco_users/dashboard/')
     print(f"Admin2 dashboard status: {dashboard_response.status_code}")
     content = dashboard_response.content.decode()
     print("Admin2 sees Admin1 in dashboard:", 'Admin1' in content)
@@ -60,10 +60,10 @@ def test_dashboard():
 
     # Test regular user login and dashboard
     client.logout()
-    login_response = client.post('/login/', {'username': 'regular', 'password': 'pass123'})
+    login_response = client.post('/sacco_users/login/', {'id_number': 'REG001', 'password': 'pass123'})
     print(f"Regular user login status: {login_response.status_code}")
 
-    dashboard_response = client.get('/dashboard/')
+    dashboard_response = client.get('/sacco_users/dashboard/')
     print(f"Regular user dashboard status: {dashboard_response.status_code}")
     content = dashboard_response.content.decode()
     print("Regular user sees Admin1 in dashboard:", 'Admin1' in content)

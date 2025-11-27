@@ -1,11 +1,11 @@
-# TODO: Fix 500 Server Error on Login
+# TODO: Fix Login Not Directing to Dashboard
 
 ## Completed Tasks
-- [x] Analyzed login view and identified issue with authenticate function call
-- [x] Updated login_view in sacco_users/views.py to use correct authenticate parameters
-- [x] Added error handling to catch and display authentication exceptions
+- [x] Analyzed login view and identified incorrect redirect URL name
+- [x] Updated login_view in sacco_users/views.py to redirect to 'sacco_users:dashboard' instead of 'dashboard'
+- [x] Updated test_dashboard.py to use correct URLs (/sacco_users/login/ and /sacco_users/dashboard/) and login data ('id_number' instead of 'username')
 
 ## Next Steps
-- [ ] Test the login functionality on the deployed site
-- [ ] If error persists, check server logs for detailed error messages
-- [ ] Verify database connection and user data integrity
+- [ ] Test the login functionality to ensure it now redirects to dashboard
+- [ ] Run the updated tests to verify they pass
+- [ ] If issues persist, check for any other URL mismatches in the codebase

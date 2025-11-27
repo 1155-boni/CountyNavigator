@@ -34,7 +34,7 @@ def login_view(request):
             user = authenticate(request, username=id_number, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('dashboard')  # Change to your dashboard URL name
+                return redirect('sacco_users:dashboard')  # Change to your dashboard URL name
             else:
                 error_message = "Invalid ID number or password."
                 return render(request, 'login.html', {'error': error_message})
