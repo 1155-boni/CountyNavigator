@@ -3,20 +3,100 @@
 {% block title %}Profile - {{ user.first_name }} {{ user.last_name }}{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-body">
-                <h2 class="card-title">{{ user.first_name }} {{ user.last_name }}</h2>
-                <p><strong>Username:</strong> {{ user.username }}</p>
-                <p><strong>Phone:</strong> {{ user.phone }}</p>
-                <p><strong>ID Number:</strong> {{ user.id_number }}</p>
-                {% if user.qr_code %}
-                <div class="text-center mt-3">
-                    <h5>QR Code</h5>
-                    <img src="{{ user.qr_code.url }}" alt="QR Code" class="img-fluid" style="max-width: 200px;">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title mb-0">{{ user.first_name }} {{ user.middle_name }} {{ user.last_name }}</h2>
                 </div>
-                {% endif %}
+                <div class="card-body">
+                    <!-- Personal Information -->
+                    <h4 class="mt-4 mb-3">Personal Information</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>First Name:</strong> {{ user.first_name }}</p>
+                            <p><strong>Middle Name:</strong> {{ user.middle_name }}</p>
+                            <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+                            <p><strong>Email:</strong> {{ user.email }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Phone:</strong> {{ user.phone }}</p>
+                            <p><strong>ID Number:</strong> {{ user.id_number }}</p>
+                            <p><strong>Membership Number:</strong> {{ user.membership_number }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Location Information -->
+                    <h4 class="mt-4 mb-3">Location Information</h4>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><strong>County:</strong> {{ user.county }}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p><strong>Sub-County:</strong> {{ user.sub_county }}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p><strong>Ward:</strong> {{ user.ward }}</p>
+                        </div>
+                    </div>
+                    <p><strong>Stage:</strong> {{ user.stage }}</p>
+
+                    <!-- Next of Kin -->
+                    <h4 class="mt-4 mb-3">Next of Kin</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>First Name:</strong> {{ user.next_of_kin_first_name }}</p>
+                            <p><strong>Last Name:</strong> {{ user.next_of_kin_last_name }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>ID Number:</strong> {{ user.next_of_kin_id_number }}</p>
+                            <p><strong>Phone:</strong> {{ user.next_of_kin_phone }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Work Information -->
+                    <h4 class="mt-4 mb-3">Work Information</h4>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5>Stage Chairman</h5>
+                            <p><strong>Name:</strong> {{ user.stage_chairman_first_name }} {{ user.stage_chairman_last_name }}</p>
+                            <p><strong>Phone:</strong> {{ user.stage_chairman_phone }}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h5>Ward Chairman</h5>
+                            <p><strong>Name:</strong> {{ user.ward_chairman_first_name }} {{ user.ward_chairman_last_name }}</p>
+                            <p><strong>Phone:</strong> {{ user.ward_chairman_phone }}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h5>Sub-County Chairman</h5>
+                            <p><strong>Name:</strong> {{ user.sub_county_chairman_first_name }} {{ user.sub_county_chairman_last_name }}</p>
+                            <p><strong>Phone:</strong> {{ user.sub_county_chairman_phone }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Motor Bike Information -->
+                    <h4 class="mt-4 mb-3">Motor Bike Information</h4>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><strong>Model:</strong> {{ user.motor_bike_model }}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p><strong>Registration Number:</strong> {{ user.motor_bike_registration_number }}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p><strong>Color:</strong> {{ user.motor_bike_color }}</p>
+                        </div>
+                    </div>
+
+                    <!-- QR Code -->
+                    {% if user.qr_code %}
+                    <div class="text-center mt-4">
+                        <h4>QR Code</h4>
+                        <img src="{{ user.qr_code.url }}" alt="QR Code" class="img-fluid" style="max-width: 200px;">
+                    </div>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>
