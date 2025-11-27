@@ -1,17 +1,6 @@
-# TODO: Implement QR Scanner for Easy Access
-
-## Tasks:
-- [x] Add URL for scan view in sacco_users/urls.py
-- [x] Implement QR scanner in templates/scan.html using Instascan library
-- [x] Add "Scan QR" button in templates/dashboard.html
-- [x] Modify scan_view in sacco_users/views.py to handle POST requests and redirect to user profile
-- [x] Add option for scanning QR code from uploaded image file
-- [ ] Test the scanner functionality
-
-# TODO: Add Delete User Feature
-
-## Tasks:
-- [ ] Add delete_user_view in sacco_users/views.py
-- [ ] Add URL path for delete-user/<int:pk>/ in sacco_users/urls.py
-- [ ] Add Delete button in templates/dashboard.html with confirmation
-- [ ] Test delete functionality
+- [x] Update SaccoUser model to include new fields for personal info, next of kin, work info, and motor bike info
+- [x] Create and run database migration for model changes
+- [x] Update add_user.html template to include form fields for new information
+- [x] Update add_user_view in views.py to handle new fields
+- [x] Update serializers to include new fields
+- [x] Test the add user functionality

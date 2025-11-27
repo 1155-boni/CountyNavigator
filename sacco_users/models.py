@@ -5,8 +5,39 @@ import qrcode
 from io import BytesIO
 
 class SaccoUser(AbstractUser):
+    # Personal Information
+    middle_name = models.CharField(max_length=30, blank=True)
     phone = models.CharField(max_length=15, blank=True)
+    email = models.EmailField(blank=True)
     id_number = models.CharField(max_length=20, unique=True)
+    membership_number = models.CharField(max_length=20, blank=True)
+    county = models.CharField(max_length=50, blank=True)
+    sub_county = models.CharField(max_length=50, blank=True)
+    ward = models.CharField(max_length=50, blank=True)
+    stage = models.CharField(max_length=50, blank=True)
+
+    # Next of Kin
+    next_of_kin_first_name = models.CharField(max_length=30, blank=True)
+    next_of_kin_last_name = models.CharField(max_length=30, blank=True)
+    next_of_kin_id_number = models.CharField(max_length=20, blank=True)
+    next_of_kin_phone = models.CharField(max_length=15, blank=True)
+
+    # Work Information
+    stage_chairman_first_name = models.CharField(max_length=30, blank=True)
+    stage_chairman_last_name = models.CharField(max_length=30, blank=True)
+    stage_chairman_phone = models.CharField(max_length=15, blank=True)
+    ward_chairman_first_name = models.CharField(max_length=30, blank=True)
+    ward_chairman_last_name = models.CharField(max_length=30, blank=True)
+    ward_chairman_phone = models.CharField(max_length=15, blank=True)
+    sub_county_chairman_first_name = models.CharField(max_length=30, blank=True)
+    sub_county_chairman_last_name = models.CharField(max_length=30, blank=True)
+    sub_county_chairman_phone = models.CharField(max_length=15, blank=True)
+
+    # Motor Bike Information
+    motor_bike_model = models.CharField(max_length=50, blank=True)
+    motor_bike_registration_number = models.CharField(max_length=20, blank=True)
+    motor_bike_color = models.CharField(max_length=20, blank=True)
+
     qr_code = models.ImageField(upload_to='qr_codes/', blank=True)
 
     groups = models.ManyToManyField(

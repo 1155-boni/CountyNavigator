@@ -7,30 +7,168 @@
     <h2 class="mb-4">Add User</h2>
     <form method="post">
         {% csrf_token %}
-        <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
-            <input type="text" class="form-control" id="username" name="username" required>
+
+        <!-- Personal Information -->
+        <h4>Personal Information</h4>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="first_name" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="first_name" name="first_name" required>
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="first_name" class="form-label">First Name</label>
-            <input type="text" class="form-control" id="first_name" name="first_name" required>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="middle_name" class="form-label">Middle Name</label>
+                <input type="text" class="form-control" id="middle_name" name="middle_name">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="last_name" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="last_name" name="last_name" required>
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="last_name" class="form-label">Last Name</label>
-            <input type="text" class="form-control" id="last_name" name="last_name" required>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="id_number" class="form-label">ID Number</label>
+                <input type="text" class="form-control" id="id_number" name="id_number" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="phone" class="form-label">Phone Number</label>
+                <input type="text" class="form-control" id="phone" name="phone">
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" name="email">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="membership_number" class="form-label">Membership Number</label>
+                <input type="text" class="form-control" id="membership_number" name="membership_number">
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="phone" class="form-label">Phone</label>
-            <input type="text" class="form-control" id="phone" name="phone">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="county" class="form-label">County</label>
+                <input type="text" class="form-control" id="county" name="county">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="sub_county" class="form-label">Sub-County</label>
+                <input type="text" class="form-control" id="sub_county" name="sub_county">
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="id_number" class="form-label">ID Number</label>
-            <input type="text" class="form-control" id="id_number" name="id_number" required>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="ward" class="form-label">Ward</label>
+                <input type="text" class="form-control" id="ward" name="ward">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="stage" class="form-label">Stage</label>
+                <input type="text" class="form-control" id="stage" name="stage">
+            </div>
         </div>
+
+        <!-- Next of Kin -->
+        <h4>Next of Kin</h4>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="next_of_kin_first_name" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="next_of_kin_first_name" name="next_of_kin_first_name">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="next_of_kin_last_name" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="next_of_kin_last_name" name="next_of_kin_last_name">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="next_of_kin_id_number" class="form-label">ID Number</label>
+                <input type="text" class="form-control" id="next_of_kin_id_number" name="next_of_kin_id_number">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="next_of_kin_phone" class="form-label">Phone Number</label>
+                <input type="text" class="form-control" id="next_of_kin_phone" name="next_of_kin_phone">
+            </div>
+        </div>
+
+        <!-- Work Information -->
+        <h4>Work Information</h4>
+        <h5>Stage Chairman</h5>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="stage_chairman_first_name" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="stage_chairman_first_name" name="stage_chairman_first_name">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="stage_chairman_last_name" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="stage_chairman_last_name" name="stage_chairman_last_name">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="stage_chairman_phone" class="form-label">Phone Number</label>
+                <input type="text" class="form-control" id="stage_chairman_phone" name="stage_chairman_phone">
+            </div>
+        </div>
+
+        <h5>Ward Chairman</h5>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="ward_chairman_first_name" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="ward_chairman_first_name" name="ward_chairman_first_name">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="ward_chairman_last_name" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="ward_chairman_last_name" name="ward_chairman_last_name">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="ward_chairman_phone" class="form-label">Phone Number</label>
+                <input type="text" class="form-control" id="ward_chairman_phone" name="ward_chairman_phone">
+            </div>
+        </div>
+
+        <h5>Sub-County Chairman</h5>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="sub_county_chairman_first_name" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="sub_county_chairman_first_name" name="sub_county_chairman_first_name">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="sub_county_chairman_last_name" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="sub_county_chairman_last_name" name="sub_county_chairman_last_name">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="sub_county_chairman_phone" class="form-label">Phone Number</label>
+                <input type="text" class="form-control" id="sub_county_chairman_phone" name="sub_county_chairman_phone">
+            </div>
+        </div>
+
+        <!-- Motor Bike Information -->
+        <h4>Motor Bike Information</h4>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="motor_bike_model" class="form-label">Model</label>
+                <input type="text" class="form-control" id="motor_bike_model" name="motor_bike_model">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="motor_bike_registration_number" class="form-label">Registration Number</label>
+                <input type="text" class="form-control" id="motor_bike_registration_number" name="motor_bike_registration_number">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="motor_bike_color" class="form-label">Color</label>
+                <input type="text" class="form-control" id="motor_bike_color" name="motor_bike_color">
+            </div>
+        </div>
+
         <button type="submit" class="btn btn-primary">Add User</button>
         <a href="{% url 'dashboard' %}" class="btn btn-secondary">Cancel</a>
     </form>
