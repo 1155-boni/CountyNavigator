@@ -24,12 +24,11 @@ COPY . .
 
 # Create non-root user
 RUN useradd --create-home --shell /bin/bash app \
-    && chown -R app:app /app \
-    && chmod +x /app/start.sh
+    && chown -R app:app /app
 USER app
 
 # Expose port
 EXPOSE ${PORT:-8000}
 
 # Default command
-CMD ["./start.sh"]
+CMD ["gunicorn", "CountyNavigator.wsgi:application", "--bind", "0.0.0.0:8000"]
