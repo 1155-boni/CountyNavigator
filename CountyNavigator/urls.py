@@ -19,6 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import include, path
 from django.views.static import serve
+from django.shortcuts import redirect
 from pathlib import Path
 from sacco_users.views import login_view, dashboard_view
 
