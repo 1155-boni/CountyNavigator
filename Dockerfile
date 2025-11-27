@@ -27,8 +27,15 @@ RUN useradd --create-home --shell /bin/bash app \
     && chown -R app:app /app
 USER app
 
+# Copy entrypoint script and make it executable
+COPY entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
+
 # Expose port
 EXPOSE 8000
 
-# Run the application
-CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:$PORT CountyNavigator.wsgi:application"]
+# Set entrypoint
+ENTRYPOINT ["/app/entrypoint.sh"]
+
+# Default command
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "CountyNavigator.wsgi:application"]
