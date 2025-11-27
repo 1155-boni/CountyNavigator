@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{% block title %}Scan QR Code - County Navigator{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">Scan QR Code</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <video id="preview" class="img-fluid border"></video>
+        </div>
+        <div class="col-md-6">
+            <div id="result" class="alert alert-info" style="display: none;">
+                <strong>Scanned:</strong> <span id="scanned-data"></span>
+            </div>
+            <div id="error" class="alert alert-danger" style="display: none;">
+                <strong>Error:</strong> <span id="error-message"></span>
+            </div>
+            <button id="start-scan" class="btn btn-primary mt-3">Start Camera Scanning</button>
+            <button id="stop-scan" class="btn btn-secondary mt-3" style="display: none;">Stop Scanning</button>
+            <hr>
+            <h5>Or Upload QR Code Image</h5>
+            <input type="file" id="qr-file" accept="image/*" class="form-control mb-3">
+            <button id="scan-file" class="btn btn-success">Scan from File</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+<script>
+let scanner = null;
+
+document.getElementById('start-scan').addEventListener('click', function() {
+    if (scanner) {
+        scanner.stop();
+    }
+    scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+    scanner.addListener('scan', function (content) {
+        document.getElementById('scanned-data').textContent = content;
+        document.getElementById('result').style.display = 'block';
+        document.getElementById('error').style.display = 'none';
+
+        // Send the scanned data to the server
+        fetch('/sacco_users/scan/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({ qr_data: content })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.href = data.redirect_url;
+            } else {
+                document.getElementById('error-message').textContent = data.error;
+                document.getElementById('error').style.display = 'block';
+            }
+        })
+        .catch(error => {
+            document.getElementById('error-message').textContent = 'Network error occurred.';
+            document.getElementById('error').style.display = 'block';
+        });
+    });
+
+    Instascan.Camera.getCameras().then(function (cameras) {
+        if (cameras.length > 0) {
+            scanner.start(cameras[0]);
+            document.getElementById('start-scan').style.display = 'none';
+            document.getElementById('stop-scan').style.display = 'inline-block';
+        } else {
+            document.getElementById('error-message').textContent = 'No cameras found.';
+            document.getElementById('error').style.display = 'block';
+        }
+    }).catch(function (e) {
+        document.getElementById('error-message').textContent = 'Camera access denied.';
+        document.getElementById('error').style.display = 'block';
+    });
+});
+
+document.getElementById('stop-scan').addEventListener('click', function() {
+    if (scanner) {
+        scanner.stop();
+        scanner = null;
+    }
+    document.getElementById('start-scan').style.display = 'inline-block';
+    document.getElementById('stop-scan').style.display = 'none';
+    document.getElementById('result').style.display = 'none';
+    document.getElementById('error').style.display = 'none';
+});
+
+document.getElementById('scan-file').addEventListener('click', function() {
+    const fileInput = document.getElementById('qr-file');
+    const file = fileInput.files[0];
+    if (!file) {
+        document.getElementById('error-message').textContent = 'Please select an image file.';
+        document.getElementById('error').style.display = 'block';
+        document.getElementById('result').style.display = 'none';
+        return;
+    }
+
+    const img = new Image();
+    img.onload = function() {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0, img.width, img.height);
+
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const code = jsQR(imageData.data, imageData.width, imageData.height);
+
+        if (code) {
+            document.getElementById('scanned-data').textContent = code.data;
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('error').style.display = 'none';
+
+            // Send the scanned data to the server
+            fetch('/sacco_users/scan/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ qr_data: code.data })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = data.redirect_url;
+                } else {
+                    document.getElementById('error-message').textContent = data.error;
+                    document.getElementById('error').style.display = 'block';
+                }
+            })
+            .catch(error => {
+                document.getElementById('error-message').textContent = 'Network error occurred.';
+                document.getElementById('error').style.display = 'block';
+            });
+        } else {
+            document.getElementById('error-message').textContent = 'No QR code found in the image.';
+            document.getElementById('error').style.display = 'block';
+            document.getElementById('result').style.display = 'none';
+        }
+    };
+    img.src = URL.createObjectURL(file);
+});
+</script>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile - {{ user.first_name }} {{ user.last_name }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">{{ user.first_name }} {{ user.last_name }}</h2>
+                <p><strong>Username:</strong> {{ user.username }}</p>
+                <p><strong>Phone:</strong> {{ user.phone }}</p>
+                <p><strong>ID Number:</strong> {{ user.id_number }}</p>
+                {% if user.qr_code %}
+                <div class="text-center mt-3">
+                    <h5>QR Code</h5>
+                    <img src="{{ user.qr_code.url }}" alt="QR Code" class="img-fluid" style="max-width: 200px;">
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
