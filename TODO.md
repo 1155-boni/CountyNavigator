@@ -1,13 +1,9 @@
-- [x] Modify sacco_users/models.py: Change base class to AbstractBaseUser, add USERNAME_FIELD = 'id_number', and define required fields
-- [x] Update sacco_users/views.py: Change login and user creation logic to use id_number instead of username
-- [x] Update templates/login.html: Remove username fields and use id_number for login
-- [x] Update templates/add_user.html: Remove username fields
-- [x] Update templates/edit_user.html: Remove username fields
-- [x] Update sacco_users/serializers.py: Remove username from serialization
-- [x] Create a new migration for model changes
-- [x] Create a management command to delete test users
-- [x] Run migration and delete test users
-- [x] Test login and user management functionality
-- [x] Add Dockerfile for render deployment
-- [x] Update settings.py for production deployment
-- [x] Create admin user with specified credentials
+# TODO: Replace render.yaml with Docker Setup
+
+- [ ] Create docker-compose.yml with web (Django app) and db (PostgreSQL) services
+- [ ] Create .env file with environment variables (SECRET_KEY, DEBUG, etc.)
+- [ ] Modify Dockerfile to remove collectstatic command (move to entrypoint or docker-compose)
+- [ ] Ensure migrations run in the container (add entrypoint script if needed)
+- [ ] Test the Docker setup locally with docker-compose up --build
+- [ ] Remove render.yaml file
+- [ ] Update documentation or notes on deployment
