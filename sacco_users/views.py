@@ -37,12 +37,12 @@ def login_view(request):
                 return redirect('dashboard')  # Change to your dashboard URL name
             else:
                 error_message = "Invalid ID number or password."
-                return render(request, 'sacco_users/login.html', {'error': error_message})
+                return render(request, 'login.html', {'error': error_message})
         except Exception as e:
             error_message = f"Login error: {str(e)}"
             return render(request, 'sacco_users/login.html', {'error': error_message})
     
-    return render(request, 'sacco_users/login.html')
+    return render(request, 'login.html')
 
 def dashboard_view(request):
     if not request.user.is_authenticated:
