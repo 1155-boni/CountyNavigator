@@ -37,3 +37,4 @@ python manage.py collectstatic --noinput --clear
 # Start the application
 echo "Starting application..."
 exec "$@"
+3
