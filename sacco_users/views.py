@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.http import JsonResponse
 from .models import SaccoUser
 from .serializers import SaccoUserSerializer, SaccoUserCreateSerializer
+from django.views.decorators.http import require_http_methods
 
 class UserListCreateView(generics.ListCreateAPIView):
     queryset = SaccoUser.objects.all()
@@ -22,20 +23,26 @@ class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = SaccoUserSerializer
     permission_classes = [IsAdminUser]
 
+@require_http_methods(["GET", "POST"])
 def login_view(request):
     if request.method == 'POST':
         id_number = request.POST.get('id_number')
         password = request.POST.get('password')
+        
         try:
-            user = authenticate(username=id_number, password=password)
-            if user:
+            # Authenticate user
+            user = authenticate(request, username=id_number, password=password)
+            if user is not None:
                 login(request, user)
-                return redirect('sacco_users:dashboard')
+                return redirect('dashboard')  # Change to your dashboard URL name
             else:
-                messages.error(request, 'Invalid credentials')
+                error_message = "Invalid ID number or password."
+                return render(request, 'sacco_users/login.html', {'error': error_message})
         except Exception as e:
-            messages.error(request, f'Login error: {str(e)}')
-    return render(request, 'login.html')
+            error_message = f"Login error: {str(e)}"
+            return render(request, 'sacco_users/login.html', {'error': error_message})
+    
+    return render(request, 'sacco_users/login.html')
 
 def dashboard_view(request):
     if not request.user.is_authenticated:
