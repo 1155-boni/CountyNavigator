@@ -33,4 +33,4 @@ USER app
 EXPOSE ${PORT:-8000}
 
 # Default command
-CMD ["./start.sh", "gunicorn", "CountyNavigator.wsgi:application", "--bind", "0.0.0.0:${PORT:-8000}", "--workers", "2", "--threads", "2", "--timeout", "120"]
+CMD ./start.sh gunicorn CountyNavigator.wsgi:application --bind 0.0.0.0:${PORT:-8000} --workers 2 --threads 2 --timeout 120
