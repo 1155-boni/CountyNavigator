@@ -35,7 +35,10 @@ RENDER_EXTERNAL_URL = os.getenv('RENDER_EXTERNAL_URL')
 if RENDER_EXTERNAL_URL:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_URL)
 
+#!/bin/bash
 
+python manage.py migrate
+gunicorn CountyNavigator.wsgi:application --bind 0.0.0.0:${PORT:-8000}
 # Application definition
 
 INSTALLED_APPS = [
@@ -53,6 +56,7 @@ INSTALLED_APPS = [
 AUTH_USER_MODEL = 'sacco_users.SaccoUser'
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Add this first
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
