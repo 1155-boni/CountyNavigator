@@ -97,6 +97,16 @@ def edit_user_view(request, pk):
             messages.error(request, f'Error updating user: {str(e)}')
     return render(request, 'edit_user.html', {'user': user})
 
+def delete_user_view(request, pk):
+    if not request.user.is_authenticated or not request.user.is_superuser:
+        return redirect('login')
+    user = get_object_or_404(SaccoUser, pk=pk)
+    if request.method == 'POST':
+        user.delete()
+        messages.success(request, 'User deleted successfully.')
+        return redirect('dashboard')
+    return render(request, 'delete_user.html', {'user': user})
+
 def scan_view(request):
     if not request.user.is_authenticated:
         return redirect('login')

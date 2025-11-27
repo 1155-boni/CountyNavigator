@@ -26,7 +26,7 @@ from sacco_users.views import login_view, dashboard_view
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 urlpatterns = [
-    path('', include('users.urls')),
+    path('', login_view, name='home'),
     path('login/', login_view, name='login'),
     path('dashboard/', dashboard_view, name='dashboard'),
     path('sacco_users/', include('sacco_users.urls')),
