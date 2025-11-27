@@ -1,11 +1,43 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.core.files.base import ContentFile
 import qrcode
 from io import BytesIO
 
-class SaccoUser(AbstractUser):
+class SaccoUserManager(BaseUserManager):
+    def create_user(self, id_number, email, password=None, **extra_fields):
+        if not id_number:
+            raise ValueError('The ID Number must be set')
+        email = self.normalize_email(email)
+        user = self.model(id_number=id_number, email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, id_number, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError('Superuser must have is_staff=True.')
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('Superuser must have is_superuser=True.')
+
+        return self.create_user(id_number, email, password, **extra_fields)
+
+class SaccoUser(AbstractBaseUser, PermissionsMixin):
+    USERNAME_FIELD = 'id_number'
+    REQUIRED_FIELDS = ['email', 'first_name', 'last_name']
+
+    objects = SaccoUserManager()
+
+    date_joined = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+
     # Personal Information
+    first_name = models.CharField(max_length=30, blank=True)
+    last_name = models.CharField(max_length=30, blank=True)
     middle_name = models.CharField(max_length=30, blank=True)
     phone = models.CharField(max_length=15, blank=True)
     email = models.EmailField(blank=True)

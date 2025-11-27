@@ -24,9 +24,9 @@ class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 def login_view(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
+        id_number = request.POST.get('id_number')
         password = request.POST.get('password')
-        user = authenticate(username=username, password=password)
+        user = authenticate(id_number=id_number, password=password)
         if user:
             login(request, user)
             return redirect('dashboard')
@@ -53,7 +53,6 @@ def add_user_view(request):
     if not request.user.is_authenticated or not request.user.is_superuser:
         return redirect('login')
     if request.method == 'POST':
-        username = request.POST.get('username')
         first_name = request.POST.get('first_name')
         middle_name = request.POST.get('middle_name')
         last_name = request.POST.get('last_name')
@@ -84,13 +83,12 @@ def add_user_view(request):
         password = request.POST.get('password', 'defaultpassword')
         try:
             user = SaccoUser.objects.create_user(
-                username=username,
+                id_number=id_number,
+                email=email,
                 first_name=first_name,
                 middle_name=middle_name,
                 last_name=last_name,
-                email=email,
                 phone=phone,
-                id_number=id_number,
                 membership_number=membership_number,
                 county=county,
                 sub_county=sub_county,

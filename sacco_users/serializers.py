@@ -5,7 +5,7 @@ class SaccoUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = SaccoUser
         fields = [
-            'id', 'username', 'first_name', 'middle_name', 'last_name', 'email', 'phone', 'id_number',
+            'id', 'first_name', 'middle_name', 'last_name', 'email', 'phone', 'id_number',
             'membership_number', 'county', 'sub_county', 'ward', 'stage',
             'next_of_kin_first_name', 'next_of_kin_last_name', 'next_of_kin_id_number', 'next_of_kin_phone',
             'stage_chairman_first_name', 'stage_chairman_last_name', 'stage_chairman_phone',
@@ -22,7 +22,7 @@ class SaccoUserCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = SaccoUser
         fields = [
-            'username', 'first_name', 'middle_name', 'last_name', 'email', 'phone', 'id_number',
+            'first_name', 'middle_name', 'last_name', 'email', 'phone', 'id_number',
             'membership_number', 'county', 'sub_county', 'ward', 'stage',
             'next_of_kin_first_name', 'next_of_kin_last_name', 'next_of_kin_id_number', 'next_of_kin_phone',
             'stage_chairman_first_name', 'stage_chairman_last_name', 'stage_chairman_phone',
