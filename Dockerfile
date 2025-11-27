@@ -22,10 +22,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy project
 COPY . .
 
-# Copy entrypoint script and make it executable
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
 # Create non-root user
 RUN useradd --create-home --shell /bin/bash app \
     && chown -R app:app /app
@@ -33,9 +29,6 @@ USER app
 
 # Expose port
 EXPOSE 8000
-
-# Set entrypoint
-ENTRYPOINT ["/entrypoint.sh"]
 
 # Run the application
 CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:$PORT CountyNavigator.wsgi:application"]
