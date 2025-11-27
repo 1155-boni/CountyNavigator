@@ -15,29 +15,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import include, path
-from django.views.static import serve
-from django.shortcuts import redirect
-from pathlib import Path
-
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-def home_redirect(request):
-    return redirect('sacco_users:login')
 
 urlpatterns = [
-    path('', home_redirect, name='home'),
-    path('sacco_users/', include('sacco_users.urls', namespace='sacco_users')),
     path('admin/', admin.site.urls),
+    path('sacco_users/', include('sacco_users.urls')),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    urlpatterns += static(settings.STATIC_URL, document_root=str(BASE_DIR / "static"))
-    # serve any .well-known requests from static/.well-known
-    urlpatterns += [
-        path('.well-known/<path:path>', serve, {'document_root': str(BASE_DIR / 'static' / '.well-known')}),
-        path('favicon.ico', serve, {'path': 'favicon.ico', 'document_root': str(BASE_DIR / 'static')}),
-    ]
