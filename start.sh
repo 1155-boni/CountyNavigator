@@ -26,6 +26,10 @@ fi
 echo "Running migrations..."
 python manage.py migrate --noinput
 
+# Create admin users
+echo "Creating admin users..."
+python manage.py create_admins
+
 # Collect static files
 echo "Collecting static files..."
 python manage.py collectstatic --noinput --clear
