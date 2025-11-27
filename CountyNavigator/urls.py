@@ -21,15 +21,12 @@ from django.urls import include, path
 from django.views.static import serve
 from django.shortcuts import redirect
 from pathlib import Path
-from sacco_users.views import login_view, dashboard_view
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 urlpatterns = [
-    path('', login_view, name='home'),
-    path('login/', login_view, name='login'),
-    path('dashboard/', dashboard_view, name='dashboard'),
-    path('sacco_users/', include('sacco_users.urls')),
+    path('', redirect('sacco_users:login'), name='home'),
+    path('sacco_users/', include('sacco_users.urls', namespace='sacco_users')),
     path('admin/', admin.site.urls),
 ]
 

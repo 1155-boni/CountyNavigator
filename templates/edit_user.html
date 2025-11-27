@@ -29,7 +29,7 @@
             <input type="text" class="form-control" id="id_number" name="id_number" value="{{ user.id_number }}" required>
         </div>
         <button type="submit" class="btn btn-primary">Update User</button>
-        <a href="{% url 'dashboard' %}" class="btn btn-secondary">Cancel</a>
+        <a href="{% url 'sacco_users:dashboard' %}" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
 {% endblock %}

@@ -1,11 +1,16 @@
-# TODO: Replace render.yaml with Docker Setup
+# TODO: Fix 500 Server Error After Login
 
-- [x] Make DB_HOST configurable in entrypoint.sh and settings.py (allows running without docker-compose)
-- [x] Remove entrypoint.sh from Dockerfile and ensure deployment without it
-- [ ] Create docker-compose.yml with web (Django app) and db (PostgreSQL) services
-- [ ] Create .env file with environment variables (SECRET_KEY, DEBUG, etc.)
-- [ ] Modify Dockerfile to remove collectstatic command (move to entrypoint or docker-compose)
-- [ ] Ensure migrations run in the container (add entrypoint script if needed)
-- [ ] Test the Docker setup locally with docker-compose up --build
-- [ ] Remove render.yaml file
-- [ ] Update documentation or notes on deployment
+## Steps to Complete
+
+- [ ] Add namespace 'sacco_users' to the include in CountyNavigator/urls.py
+- [ ] Remove duplicate 'login' and 'dashboard' paths from root URLs in CountyNavigator/urls.py
+- [ ] Change root 'home' to redirect to namespaced login in CountyNavigator/urls.py
+- [ ] Update {% url %} tags in templates/dashboard.html to use 'sacco_users:...'
+- [ ] Update {% url %} tags in templates/add_user.html to use 'sacco_users:...'
+- [ ] Update {% url %} tags in templates/edit_user.html to use 'sacco_users:...'
+- [ ] Update {% url %} tags in templates/delete_user.html to use 'sacco_users:...'
+- [ ] Update hardcoded href and {% url %} in templates/base.html to use 'sacco_users:...'
+- [ ] Update redirects in sacco_users/views.py to use namespaced URLs
+- [ ] Fix test_dashboard.py to use 'id_number' instead of 'username' in POST data
+- [ ] Update scan_view redirect in sacco_users/views.py to use reverse for consistency
+- [ ] Test the application to ensure login and dashboard work without 500 error

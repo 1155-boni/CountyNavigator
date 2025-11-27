@@ -15,7 +15,7 @@
             {% endfor %}
         {% endif %}
         {% if user.is_superuser %}
-            <a href="{% url 'add_user' %}" class="btn btn-success mb-3">Add New User</a>
+            <a href="{% url 'sacco_users:add_user' %}" class="btn btn-success mb-3">Add New User</a>
         {% endif %}
         <div class="card">
             <div class="card-header">
@@ -46,10 +46,10 @@
                                         <td>{{ user.phone }}</td>
                                         <td>{{ user.id_number }}</td>
                                         <td>
-                                            <a href="{% url 'profile' user.id %}" class="btn btn-sm btn-primary">View Profile</a>
+                                            <a href="{% url 'sacco_users:profile' user.id %}" class="btn btn-sm btn-primary">View Profile</a>
                                             {% if request.user.is_superuser %}
-                                                <a href="{% url 'edit_user' user.id %}" class="btn btn-sm btn-warning">Edit</a>
-                                                <a href="{% url 'delete_user' user.id %}" class="btn btn-sm btn-danger">Delete</a>
+                                                <a href="{% url 'sacco_users:edit_user' user.id %}" class="btn btn-sm btn-warning">Edit</a>
+                                                <a href="{% url 'sacco_users:delete_user' user.id %}" class="btn btn-sm btn-danger">Delete</a>
                                             {% endif %}
                                         </td>
                                     </tr>
