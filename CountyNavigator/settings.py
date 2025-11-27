@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'CountyNavigator.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://Boni:boni3bolo3@localhost:5432/CountyNavigator',
+        default=f'postgresql://Boni:boni3bolo3@{os.getenv("DB_HOST", "localhost")}:5432/CountyNavigator',
         conn_max_age=600
     )
 }

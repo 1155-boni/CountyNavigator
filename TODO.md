@@ -1,5 +1,6 @@
 # TODO: Replace render.yaml with Docker Setup
 
+- [x] Make DB_HOST configurable in entrypoint.sh and settings.py (allows running without docker-compose)
 - [ ] Create docker-compose.yml with web (Django app) and db (PostgreSQL) services
 - [ ] Create .env file with environment variables (SECRET_KEY, DEBUG, etc.)
 - [ ] Modify Dockerfile to remove collectstatic command (move to entrypoint or docker-compose)
