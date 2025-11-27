@@ -27,9 +27,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-1452%ht)n1h8om*-2(jz6ws%&$j2(utjby!_si88gi$_t7!c$q')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
-ALLOWED_HOSTS = ['testserver', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'testserver,127.0.0.1,localhost').split(',')
+RENDER_EXTERNAL_URL = os.getenv('RENDER_EXTERNAL_URL')
+if RENDER_EXTERNAL_URL:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_URL)
 
 
 # Application definition
@@ -82,14 +85,10 @@ WSGI_APPLICATION = 'CountyNavigator.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME', 'CountyNavigator'),
-        'USER': os.getenv('DB_USER', 'Boni'),
-        'PASSWORD': os.getenv('DB_PASSWORD', 'boni3bolo3'),
-        'HOST': os.getenv('DB_HOST', 'localhost'),
-        'PORT': os.getenv('DB_PORT', '5432'),
-    }
+    'default': dj_database_url.config(
+        default='postgresql://Boni:boni3bolo3@localhost:5432/CountyNavigator',
+        conn_max_age=600
+    )
 }
 
 
