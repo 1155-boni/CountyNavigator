@@ -36,6 +36,9 @@ RENDER_EXTERNAL_URL = os.getenv('RENDER_EXTERNAL_URL')
 if RENDER_EXTERNAL_URL:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_URL)
 
+# Strip whitespace from each host
+ALLOWED_HOSTS = [host.strip() for host in ALLOWED_HOSTS]
+
 # Application definition
 
 INSTALLED_APPS = [
