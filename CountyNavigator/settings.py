@@ -30,7 +30,8 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-1452%ht)n1h8om*-2(jz6ws%&$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1,localhost', '').split(',')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
+
 RENDER_EXTERNAL_URL = os.getenv('RENDER_EXTERNAL_URL')
 if RENDER_EXTERNAL_URL:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_URL)
