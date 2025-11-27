@@ -35,10 +35,6 @@ RENDER_EXTERNAL_URL = os.getenv('RENDER_EXTERNAL_URL')
 if RENDER_EXTERNAL_URL:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_URL)
 
-#!/bin/bash
-
-python manage.py migrate
-gunicorn CountyNavigator.wsgi:application --bind 0.0.0.0:${PORT:-8000}
 # Application definition
 
 INSTALLED_APPS = [

@@ -1,7 +1,5 @@
 #!/bin/bash
 
-python manage.py migrate
-gunicorn CountyNavigator.wsgi:application --bind 0.0.0.0:${PORT:-8000}
 # Wait for database to be ready
 DB_HOST=${DB_HOST:-db}
 echo "Waiting for database at $DB_HOST:5432..."
@@ -18,5 +16,5 @@ python manage.py migrate
 echo "Collecting static files..."
 python manage.py collectstatic --noinput
 
-# Execute the main command
-exec "$@"
+# Start gunicorn
+gunicorn CountyNavigator.wsgi:application --bind 0.0.0.0:${PORT:-8000}
