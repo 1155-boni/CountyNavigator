@@ -93,7 +93,11 @@
                     {% if user.qr_code %}
                     <div class="text-center mt-4">
                         <h4>QR Code</h4>
+                        {% if user.qr_code|slice:":4" == "http" %}
                         <img src="{{ user.qr_code }}" alt="QR Code" class="img-fluid" style="max-width: 200px;">
+                        {% else %}
+                        <img src="{{ MEDIA_URL }}{{ user.qr_code }}" alt="QR Code" class="img-fluid" style="max-width: 200px;">
+                        {% endif %}
                     </div>
                     {% endif %}
                 </div>
