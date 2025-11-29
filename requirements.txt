@@ -4,6 +4,8 @@ djangorestframework-simplejwt==5.3.1
 psycopg2-binary==2.9.10
 Pillow==10.4.0
 qrcode[pil]==7.4.2
+cloudinary==1.41.0
+django-cloudinary-storage==0.3.0
 gunicorn==23.0.0
 whitenoise==6.7.0
 dj-database-url==2.2.0

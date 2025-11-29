@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.core.files.base import ContentFile
 import qrcode
 from io import BytesIO
+import cloudinary.uploader
 
 class SaccoUserManager(BaseUserManager):
     def create_user(self, id_number, email, password=None, **extra_fields):
@@ -70,7 +71,7 @@ class SaccoUser(AbstractBaseUser, PermissionsMixin):
     motor_bike_registration_number = models.CharField(max_length=20, blank=True)
     motor_bike_color = models.CharField(max_length=20, blank=True)
 
-    qr_code = models.ImageField(upload_to='qr_codes/', blank=True)
+    qr_code = models.CharField(max_length=500, blank=True)
 
     groups = models.ManyToManyField(
         'auth.Group',
@@ -102,4 +103,7 @@ class SaccoUser(AbstractBaseUser, PermissionsMixin):
         buffer = BytesIO()
         img.save(buffer, format='PNG')
         buffer.seek(0)
-        self.qr_code.save(f'qr_{self.id}.png', ContentFile(buffer.getvalue()), save=False)
+
+        # Upload to Cloudinary
+        upload_result = cloudinary.uploader.upload(buffer, public_id=f'qr_{self.id}', folder='qr_codes')
+        self.qr_code = upload_result['secure_url']
